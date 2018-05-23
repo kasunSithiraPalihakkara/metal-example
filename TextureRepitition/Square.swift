@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import Metal
+import MetalKit
 
 class Square: Node {
     
-    init(device: MTLDevice, commandQ: MTLCommandQueue){
+    init(device: MTLDevice, commandQ: MTLCommandQueue,textureLoader :MTKTextureLoader){
         
       
         let A = Vertex(x: -1.0, y:   1.0, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0 , s: 0.0, t: 0.0)
@@ -27,10 +27,11 @@ class Square: Node {
             A,B,C ,D,E,F
         ]
         
-        let texture = MetalTexture(resourceName: "texture", ext:"png", mipmaped: false)
-        texture.loadTexture(device: device, commandQ: commandQ, flip: true)
+        let path = Bundle.main.path(forResource: "texture", ofType: "png")!
+        let data = NSData(contentsOfFile: path) as! Data
+        let texture = try! textureLoader.newTexture(with: data, options: [MTKTextureLoaderOptionSRGB : (false as NSNumber)])
         
-        super.init(name: "Square", vertices: verticesArray, device: device, texture: texture.texture)
+        super.init(name: "Cube", vertices: verticesArray, device: device, texture: texture)
     }
     
 }

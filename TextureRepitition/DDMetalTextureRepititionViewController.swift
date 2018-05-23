@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Metal
+import MetalKit
 import simd
 
 class DDMetalTextureRepititionViewController: UIViewController {
@@ -18,12 +18,14 @@ class DDMetalTextureRepititionViewController: UIViewController {
     var pipelineState: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
     var timer: CADisplayLink!
+    var textureLoader: MTKTextureLoader! = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         device = MTLCreateSystemDefaultDevice()
+        textureLoader = MTKTextureLoader(device: device)
         
         metalLayer = CAMetalLayer()
         metalLayer.device = device
@@ -52,7 +54,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
         
         commandQueue = device.makeCommandQueue()
         
-        objectToDraw = Square(device: device, commandQ: commandQueue)
+        objectToDraw = Square(device: device, commandQ: commandQueue, textureLoader: textureLoader)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
         objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
