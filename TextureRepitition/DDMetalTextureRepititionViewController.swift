@@ -31,11 +31,11 @@ class DDMetalTextureRepititionViewController: UIViewController {
         metalLayer.frame = view.layer.frame
         view.layer.addSublayer(metalLayer)
         
-        objectToDraw = Square(device: device)
-        objectToDraw.positionX = 0
-        objectToDraw.positionY =  0
-       // objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
-        objectToDraw.scale = 0.05
+//        objectToDraw = Square(device: device)
+//        objectToDraw.positionX = 0
+//        objectToDraw.positionY =  0
+//       // objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
+//        objectToDraw.scale = 0.1
        
         let defaultLibrary = device.newDefaultLibrary()!
         let fragmentProgram = defaultLibrary.makeFunction(name: "basic_fragment")
@@ -50,6 +50,12 @@ class DDMetalTextureRepititionViewController: UIViewController {
         pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
         
         commandQueue = device.makeCommandQueue()
+        
+        objectToDraw = Square(device: device, commandQ: commandQueue)
+        objectToDraw.positionX = 0
+        objectToDraw.positionY =  0
+        objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
+        objectToDraw.scale = 0.4
         
         timer = CADisplayLink(target: self, selector: #selector(DDMetalTextureRepititionViewController.gameloop))
         timer.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)

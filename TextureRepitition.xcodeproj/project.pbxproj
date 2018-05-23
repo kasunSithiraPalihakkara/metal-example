@@ -16,11 +16,10 @@
 		677748C120B3EE4100800462 /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = 677748C020B3EE4100800462 /* Matrix4.m */; };
 		677748C320B3EEE000800462 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C220B3EEE000800462 /* Vertex.swift */; };
 		677748C520B3EFAA00800462 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C420B3EFAA00800462 /* Node.swift */; };
-		677748C720B3F11300800462 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C620B3F11300800462 /* Triangle.swift */; };
 		677748C920B3F7FE00800462 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C820B3F7FE00800462 /* Square.swift */; };
 		677748CB20B413CA00800462 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CA20B413CA00800462 /* BufferProvider.swift */; };
-		677748CD20B4217B00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748CC20B4217B00800462 /* texture.png */; };
 		677748CF20B425B800800462 /* MetalTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CE20B425B700800462 /* MetalTexture.swift */; };
+		677748DB20B44DBD00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748DA20B44DBD00800462 /* texture.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,11 +36,10 @@
 		677748C020B3EE4100800462 /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Matrix4.m; path = "../../../../../Downloads/matrix4_Metal_2 (1)/Matrix4.m"; sourceTree = "<group>"; };
 		677748C220B3EEE000800462 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		677748C420B3EFAA00800462 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		677748C620B3F11300800462 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		677748C820B3F7FE00800462 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		677748CA20B413CA00800462 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
-		677748CC20B4217B00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = texture.png; path = ../../../../../Downloads/texture.png; sourceTree = "<group>"; };
 		677748CE20B425B700800462 /* MetalTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetalTexture.swift; path = ../../../../../Downloads/MetalTexture.swift; sourceTree = "<group>"; };
+		677748DA20B44DBD00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,13 +72,12 @@
 		677748A920B3CE8C00800462 /* TextureRepitition */ = {
 			isa = PBXGroup;
 			children = (
-				677748CC20B4217B00800462 /* texture.png */,
+				677748DA20B44DBD00800462 /* texture.png */,
 				677748AA20B3CE8C00800462 /* AppDelegate.swift */,
 				677748AC20B3CE8C00800462 /* DDMetalTextureRepititionViewController.swift */,
 				677748BC20B3DB9E00800462 /* Shaders.metal */,
 				677748C220B3EEE000800462 /* Vertex.swift */,
 				677748C420B3EFAA00800462 /* Node.swift */,
-				677748C620B3F11300800462 /* Triangle.swift */,
 				677748C820B3F7FE00800462 /* Square.swift */,
 				677748CA20B413CA00800462 /* BufferProvider.swift */,
 				677748BF20B3EE4100800462 /* Matrix4.h */,
@@ -157,7 +154,7 @@
 				677748B520B3CE8E00800462 /* LaunchScreen.storyboard in Resources */,
 				677748B220B3CE8E00800462 /* Assets.xcassets in Resources */,
 				677748B020B3CE8C00800462 /* Main.storyboard in Resources */,
-				677748CD20B4217B00800462 /* texture.png in Resources */,
+				677748DB20B44DBD00800462 /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +173,6 @@
 				677748CF20B425B800800462 /* MetalTexture.swift in Sources */,
 				677748C520B3EFAA00800462 /* Node.swift in Sources */,
 				677748C320B3EEE000800462 /* Vertex.swift in Sources */,
-				677748C720B3F11300800462 /* Triangle.swift in Sources */,
 				677748AB20B3CE8C00800462 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
