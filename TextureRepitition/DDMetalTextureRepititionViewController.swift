@@ -8,6 +8,7 @@
 
 import UIKit
 import Metal
+import simd
 
 class DDMetalTextureRepititionViewController: UIViewController {
     
@@ -34,7 +35,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
 //        objectToDraw = Square(device: device)
 //        objectToDraw.positionX = 0
 //        objectToDraw.positionY =  0
-//       // objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
+//       // objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
 //        objectToDraw.scale = 0.1
        
         let defaultLibrary = device.newDefaultLibrary()!
@@ -54,7 +55,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw = Square(device: device, commandQ: commandQueue)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
-        objectToDraw.rotationZ = Matrix4.degrees(toRad: 45)
+        objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
         objectToDraw.scale = 0.4
         
         timer = CADisplayLink(target: self, selector: #selector(DDMetalTextureRepititionViewController.gameloop))
