@@ -13,13 +13,13 @@
 		677748B220B3CE8E00800462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 677748B120B3CE8E00800462 /* Assets.xcassets */; };
 		677748B520B3CE8E00800462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 677748B320B3CE8E00800462 /* LaunchScreen.storyboard */; };
 		677748BD20B3DB9E00800462 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 677748BC20B3DB9E00800462 /* Shaders.metal */; };
-		677748C120B3EE4100800462 /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = 677748C020B3EE4100800462 /* Matrix4.m */; };
 		677748C320B3EEE000800462 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C220B3EEE000800462 /* Vertex.swift */; };
 		677748C520B3EFAA00800462 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C420B3EFAA00800462 /* Node.swift */; };
 		677748C920B3F7FE00800462 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C820B3F7FE00800462 /* Square.swift */; };
 		677748CB20B413CA00800462 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CA20B413CA00800462 /* BufferProvider.swift */; };
 		677748CF20B425B800800462 /* MetalTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CE20B425B700800462 /* MetalTexture.swift */; };
 		677748DB20B44DBD00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748DA20B44DBD00800462 /* texture.png */; };
+		677C9D3520B52A3400EA76D2 /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C9D3420B52A3400EA76D2 /* Matrix4.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,15 +31,15 @@
 		677748B420B3CE8E00800462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		677748B620B3CE8E00800462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		677748BC20B3DB9E00800462 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		677748BE20B3EE4100800462 /* TextureRepitition-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TextureRepitition-Bridging-Header.h"; sourceTree = "<group>"; };
-		677748BF20B3EE4100800462 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix4.h; path = "../../../../../Downloads/matrix4_Metal_2 (1)/Matrix4.h"; sourceTree = "<group>"; };
-		677748C020B3EE4100800462 /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Matrix4.m; path = "../../../../../Downloads/matrix4_Metal_2 (1)/Matrix4.m"; sourceTree = "<group>"; };
 		677748C220B3EEE000800462 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		677748C420B3EFAA00800462 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		677748C820B3F7FE00800462 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		677748CA20B413CA00800462 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		677748CE20B425B700800462 /* MetalTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetalTexture.swift; path = ../../../../../Downloads/MetalTexture.swift; sourceTree = "<group>"; };
 		677748DA20B44DBD00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		677C9D3220B52A3300EA76D2 /* TextureRepitition-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TextureRepitition-Bridging-Header.h"; sourceTree = "<group>"; };
+		677C9D3320B52A3400EA76D2 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
+		677C9D3420B52A3400EA76D2 /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix4.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,14 +80,14 @@
 				677748C420B3EFAA00800462 /* Node.swift */,
 				677748C820B3F7FE00800462 /* Square.swift */,
 				677748CA20B413CA00800462 /* BufferProvider.swift */,
-				677748BF20B3EE4100800462 /* Matrix4.h */,
-				677748C020B3EE4100800462 /* Matrix4.m */,
 				677748CE20B425B700800462 /* MetalTexture.swift */,
+				677C9D3320B52A3400EA76D2 /* Matrix4.h */,
+				677C9D3420B52A3400EA76D2 /* Matrix4.m */,
 				677748AE20B3CE8C00800462 /* Main.storyboard */,
 				677748B120B3CE8E00800462 /* Assets.xcassets */,
 				677748B320B3CE8E00800462 /* LaunchScreen.storyboard */,
 				677748B620B3CE8E00800462 /* Info.plist */,
-				677748BE20B3EE4100800462 /* TextureRepitition-Bridging-Header.h */,
+				677C9D3220B52A3300EA76D2 /* TextureRepitition-Bridging-Header.h */,
 			);
 			path = TextureRepitition;
 			sourceTree = "<group>";
@@ -168,11 +168,11 @@
 				677748C920B3F7FE00800462 /* Square.swift in Sources */,
 				677748BD20B3DB9E00800462 /* Shaders.metal in Sources */,
 				677748CB20B413CA00800462 /* BufferProvider.swift in Sources */,
-				677748C120B3EE4100800462 /* Matrix4.m in Sources */,
 				677748AD20B3CE8C00800462 /* DDMetalTextureRepititionViewController.swift in Sources */,
 				677748CF20B425B800800462 /* MetalTexture.swift in Sources */,
 				677748C520B3EFAA00800462 /* Node.swift in Sources */,
 				677748C320B3EEE000800462 /* Vertex.swift in Sources */,
+				677C9D3520B52A3400EA76D2 /* Matrix4.m in Sources */,
 				677748AB20B3CE8C00800462 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
