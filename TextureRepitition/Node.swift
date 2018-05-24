@@ -36,6 +36,8 @@ class Node {
    
     init(name: String, vertices: Array<Vertex>, device: MTLDevice, texture: MTLTexture) {
        
+      
+        
         var vertexData = Array<Float>()
         for vertex in vertices{
             vertexData += vertex.floatBuffer()
@@ -57,7 +59,7 @@ class Node {
         _ = bufferProvider.avaliableResourcesSemaphore.wait(timeout: DispatchTime.distantFuture)
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
-        renderPassDescriptor.colorAttachments[0].texture = drawable.texture
+        renderPassDescriptor.colorAttachments[0].texture = drawable.texture//In general, the color attachment(s) are where rendered images are stored (at least temporarily) during a render pass.
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor =
             MTLClearColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -83,7 +85,6 @@ class Node {
         let uniformBuffer = bufferProvider.nextUniformsBuffer(modelViewMatrix: nodeModelMatrix)
          renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, at: 1)
        
-        
         
         renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount,
                                      instanceCount: vertexCount/3)
