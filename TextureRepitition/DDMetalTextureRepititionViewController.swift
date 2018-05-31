@@ -13,36 +13,37 @@ import simd
 class DDMetalTextureRepititionViewController: UIViewController {
     
     var objectToDraw: Square!
-    var objectToDrawOnRequest: Square!
     var device: MTLDevice!
-    var metalLayer: CAMetalLayer!
     var pipelineState: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
-    var timer: CADisplayLink!
     var textureLoader: MTKTextureLoader! = nil
     
     let panSensivity:Float = 5.0
     var lastPanLocation: CGPoint!
     
-    let tapSensivity:Float = 1.5
+    let tapSensivity:Float = 3.0
     var lastTapLocation: CGPoint!
+    var screenBoundryScaleFactor:Float = 5.0
+    
+    var viewPortSize:vector_uint2 = vector_uint2([UInt32(0),UInt32(0)])
     
     
+    @IBOutlet weak var mtkView: MTKView! {
+        didSet {
+           
+            mtkView.delegate = self
+            mtkView.preferredFramesPerSecond = 60
+            mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
         
         device = MTLCreateSystemDefaultDevice()
         textureLoader = MTKTextureLoader(device: device)
-        
-        metalLayer = CAMetalLayer()
-        metalLayer.device = device
-        metalLayer.pixelFormat = .bgra8Unorm
-        metalLayer.framebufferOnly = true
-        metalLayer.frame = view.layer.frame
-        view.layer.addSublayer(metalLayer)
+        mtkView.device = device
         
 
         let defaultLibrary = device.newDefaultLibrary()!
@@ -62,40 +63,40 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw = Square(device: device,textureLoader: textureLoader)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
-        objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
+  //      objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
         objectToDraw.scale = 0.4
+        print("vertex array:\(objectToDraw.verticesArray.count)")
         
-       
-//        objectToDrawOnRequest = Square(device: device, textureLoader: textureLoader)
-//        objectToDrawOnRequest.positionX = 0.8
-//        objectToDrawOnRequest.positionY =  0.8
-//        objectToDrawOnRequest.rotationZ = float4x4.degrees(toRad: 45)
-//        objectToDrawOnRequest.scale = 0.4
-        
-        timer = CADisplayLink(target: self, selector: #selector(DDMetalTextureRepititionViewController.gameloop))
-        timer.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
-        
-        setupGestures()
-    }
 
+        setupGestures()
+        
+    }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        if let window = view.window {
+//            let scale = window.screen.nativeScale
+//            let layerSize = view.bounds.size
+//
+//            view.contentScaleFactor = scale
+//            metalLayer.frame = CGRect(x: 0, y: 0, width: layerSize.width, height: layerSize.height)
+//            metalLayer.drawableSize = CGSize(width: layerSize.width * scale, height: layerSize.height * scale)
+//
+//        }
+//
+//    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func render() {
-       
-        guard let drawable = metalLayer?.nextDrawable() else { return }
-        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable, clearColor: nil)
-        
-//      guard let drawableOnRequest = metalLayer?.nextDrawable() else { return }
-//      objectToDrawOnRequest.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawableOnRequest, clearColor: nil)
 
-    }
-    
-    func gameloop() {
-        autoreleasepool {
-            self.render()
-        }
+     func render(_ drawable: CAMetalDrawable?) {
+       
+        guard let drawable = drawable else { return }
+        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil)
+        
     }
     
     //MARK: - Gesture related
@@ -114,14 +115,40 @@ class DDMetalTextureRepititionViewController: UIViewController {
     func pan(panGesture: UIPanGestureRecognizer){
         if panGesture.state == UIGestureRecognizerState.changed {
             let pointInView = panGesture.location(in: self.view)
-           
-            let xDelta = Float((lastPanLocation.x - pointInView.x)/self.view.bounds.width) * panSensivity
-            let yDelta = Float((lastPanLocation.y - pointInView.y)/self.view.bounds.height) * panSensivity
+            print("pointInView:\(pointInView)")
             
-            objectToDraw.positionX -= xDelta
-            objectToDraw.positionY += yDelta
+//            let xDelta = Float((lastPanLocation.x - pointInView.x)/self.view.bounds.width) * panSensivity
+//            let yDelta = Float((lastPanLocation.y - pointInView.y)/self.view.bounds.height) * panSensivity
+            
+//            objectToDraw.positionX -= xDelta
+//            objectToDraw.positionY += yDelta
             
             print("objectToDraw.positionX: \(objectToDraw.positionX) objectToDraw.positionY:\(objectToDraw.positionY)")
+            
+            //-constantly draw images
+            var touchPoint:CGPoint = convertCoodinates(tapx:pointInView.x , tapy:pointInView.y )
+            print("touchPoint:\(touchPoint)")
+            
+            let textureWidth:Float = 200.0
+            let textureHeight:Float = 200.0
+            var textureCenterX:Float = Float(touchPoint.x)*screenBoundryScaleFactor //change number if you need to bigger canvas
+            var textureCenterY:Float = Float(touchPoint.y)*screenBoundryScaleFactor
+
+            let A = Vertex(x: textureCenterX-textureWidth/2, y:textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0 , s: 0.0, t: 0.0)
+            let B = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0 , s: 0.0, t: 800.0)
+            let C = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0 , s: 800.0, t: 800.0)
+
+            let D = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0, s: 0.0, t: 0.0)
+            let E = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0, s: 800.0, t: 800.0)
+            let F = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0, s: 0.0, t: 800.0)
+
+
+
+            objectToDraw.verticesArray.append(contentsOf: [A,B,C,D,E,F])
+            print("verticesArray count:\(objectToDraw.verticesArray.count)")
+
+            objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
+            //-
             
             lastPanLocation = pointInView
         } else if panGesture.state == UIGestureRecognizerState.began {
@@ -133,17 +160,74 @@ class DDMetalTextureRepititionViewController: UIViewController {
         
          let pointInView = tapGesture.location(in: self.view)
         
-         print("PointInView: \(pointInView)")
-        
-          let xDelta = Float((lastTapLocation.x - pointInView.x)/self.view.bounds.width)*tapSensivity
-          let yDelta = Float((lastTapLocation.y - pointInView.y)/self.view.bounds.height)*tapSensivity
-        
-         objectToDraw.positionX = -xDelta
-         objectToDraw.positionY =  yDelta
-        
-         print("objectToDraw.positionX: \(objectToDraw.positionX) objectToDraw.positionY:\(objectToDraw.positionY)")
-        
-         lastTapLocation = pointInView;
-    }
-}
+        print("PointInView: \(pointInView)")
 
+        //implementing copy image
+        
+        var touchPoint:CGPoint = convertCoodinates(tapx:pointInView.x , tapy: pointInView.y)
+        
+        let textureWidth:Float = 200.0
+        let textureHeight:Float = 200.0
+        var textureCenterX:Float = Float(touchPoint.x)*screenBoundryScaleFactor //change number if you need to bigger canvas
+        var textureCenterY:Float = Float(touchPoint.y)*screenBoundryScaleFactor
+        
+        let A = Vertex(x: textureCenterX-textureWidth/2, y:textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0 , s: 0.0, t: 0.0)
+        let B = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0 , s: 0.0, t: 800.0)
+        let C = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0 , s: 800.0, t: 800.0)
+
+        let D = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0, s: 0.0, t: 0.0)
+        let E = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0, s: 800.0, t: 800.0)
+        let F = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0, s: 0.0, t: 800.0)
+        
+        
+        
+        objectToDraw.verticesArray.append(contentsOf: [A,B,C,D,E,F])
+        print("verticesArray count:\(objectToDraw.verticesArray.count)")
+        
+        objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
+        
+        lastTapLocation = pointInView;
+    }
+    
+    func convertCoodinates(tapx:CGFloat,tapy:CGFloat) -> CGPoint{
+        let deviceWidth:CGFloat = CGFloat(viewPortSize.x)
+        let deviceHeight:CGFloat = CGFloat(viewPortSize.y)
+        var touchPoint:CGPoint = CGPoint(x: 0.0, y: 0.0)
+        
+        if (tapx <= deviceWidth/4) && (tapy <= deviceHeight/4) {
+            touchPoint.x = -(deviceWidth/4-tapx)
+            touchPoint.y = deviceHeight/4-tapy
+        }else if (tapx > deviceWidth/4) && (tapy <= deviceHeight/4) {
+            touchPoint.x = tapx-deviceWidth/4
+            touchPoint.y = deviceHeight/4-tapy
+        }else if (tapx <= deviceWidth/4) && (tapy > deviceHeight/4) {
+            touchPoint.x = -(deviceWidth/4-tapx)
+            touchPoint.y = -(tapy-deviceHeight/4)
+        }else if (tapx > deviceWidth/4) && (tapy > deviceHeight/4) {
+            touchPoint.x = tapx-deviceWidth/4
+            touchPoint.y = -(tapy-deviceHeight/4)
+        }
+        
+        return touchPoint
+        
+    }
+    
+}
+// MARK: - MTKViewDelegate
+
+extension DDMetalTextureRepititionViewController: MTKViewDelegate {
+    
+/// Called whenever view changes orientation or is resized
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+      
+        viewPortSize.x = UInt32(size.width);
+        viewPortSize.y = UInt32(size.height);
+        print("viewPort \( viewPortSize)")
+    }
+    
+/// Called whenever the view needs to render a frame
+    func draw(in view: MTKView) {
+        render(view.currentDrawable)
+    }
+    
+}

@@ -19,6 +19,7 @@
 		677748CB20B413CA00800462 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CA20B413CA00800462 /* BufferProvider.swift */; };
 		677748DB20B44DBD00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748DA20B44DBD00800462 /* texture.png */; };
 		677C9D3720B52D4700EA76D2 /* float4x4+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */; };
+		6796B97520B6BEEE00B82C37 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796B97420B6BEEE00B82C37 /* MetalKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		677748CA20B413CA00800462 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		677748DA20B44DBD00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "float4x4+Extensions.swift"; sourceTree = "<group>"; };
+		6796B97420B6BEEE00B82C37 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6796B97520B6BEEE00B82C37 /* MetalKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +57,7 @@
 			children = (
 				677748A920B3CE8C00800462 /* TextureRepitition */,
 				677748A820B3CE8C00800462 /* Products */,
+				6796B97320B6BEEE00B82C37 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +87,14 @@
 				677748B620B3CE8E00800462 /* Info.plist */,
 			);
 			path = TextureRepitition;
+			sourceTree = "<group>";
+		};
+		6796B97320B6BEEE00B82C37 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6796B97420B6BEEE00B82C37 /* MetalKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
