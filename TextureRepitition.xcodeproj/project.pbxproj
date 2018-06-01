@@ -18,6 +18,7 @@
 		677748C920B3F7FE00800462 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748C820B3F7FE00800462 /* Square.swift */; };
 		677748CB20B413CA00800462 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677748CA20B413CA00800462 /* BufferProvider.swift */; };
 		677748DB20B44DBD00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748DA20B44DBD00800462 /* texture.png */; };
+		6779A1DD20C10F39004945A2 /* texture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6779A1DC20C10F39004945A2 /* texture2.png */; };
 		677C9D3720B52D4700EA76D2 /* float4x4+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */; };
 		6796B97520B6BEEE00B82C37 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796B97420B6BEEE00B82C37 /* MetalKit.framework */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		677748C820B3F7FE00800462 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		677748CA20B413CA00800462 /* BufferProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		677748DA20B44DBD00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		6779A1DC20C10F39004945A2 /* texture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture2.png; sourceTree = "<group>"; };
 		677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "float4x4+Extensions.swift"; sourceTree = "<group>"; };
 		6796B97420B6BEEE00B82C37 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				677748DA20B44DBD00800462 /* texture.png */,
+				6779A1DC20C10F39004945A2 /* texture2.png */,
 				677748AA20B3CE8C00800462 /* AppDelegate.swift */,
 				677748AC20B3CE8C00800462 /* DDMetalTextureRepititionViewController.swift */,
 				677748BC20B3DB9E00800462 /* Shaders.metal */,
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				677748B520B3CE8E00800462 /* LaunchScreen.storyboard in Resources */,
+				6779A1DD20C10F39004945A2 /* texture2.png in Resources */,
 				677748B220B3CE8E00800462 /* Assets.xcassets in Resources */,
 				677748B020B3CE8C00800462 /* Main.storyboard in Resources */,
 				677748DB20B44DBD00800462 /* texture.png in Resources */,

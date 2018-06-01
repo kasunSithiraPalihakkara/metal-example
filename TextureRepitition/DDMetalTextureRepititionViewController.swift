@@ -34,6 +34,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
             mtkView.delegate = self
             mtkView.preferredFramesPerSecond = 60
             mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    
         }
     }
     
@@ -56,6 +57,16 @@ class DDMetalTextureRepititionViewController: UIViewController {
         pipelineStateDescriptor.fragmentFunction = fragmentProgram
         pipelineStateDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
         
+        //-blending
+        pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
+        pipelineStateDescriptor.colorAttachments[0].rgbBlendOperation = .add;
+        pipelineStateDescriptor.colorAttachments[0].alphaBlendOperation = .add;
+        pipelineStateDescriptor.colorAttachments[0].sourceRGBBlendFactor = .one;
+        pipelineStateDescriptor.colorAttachments[0].sourceAlphaBlendFactor = .one;
+        pipelineStateDescriptor.colorAttachments[0].destinationRGBBlendFactor = .oneMinusSourceAlpha;
+        pipelineStateDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .oneMinusSourceAlpha;
+        //-
+        
         pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
         
         commandQueue = device.makeCommandQueue()
@@ -63,7 +74,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw = Square(device: device,textureLoader: textureLoader)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
-  //      objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
+       // objectToDraw.rotationZ = float4x4.degrees(toRad: 90)
         objectToDraw.scale = 0.4
         print("vertex array:\(objectToDraw.verticesArray.count)")
         
@@ -148,6 +159,13 @@ class DDMetalTextureRepititionViewController: UIViewController {
             print("verticesArray count:\(objectToDraw.verticesArray.count)")
 
             objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
+         
+            //-works if you need to drag the texture
+//            var verticesArray:Array<Vertex>  = [
+//                A,B,C ,D,E,F
+//            ]
+//            objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
+            
             //-
             
             lastPanLocation = pointInView

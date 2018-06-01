@@ -55,7 +55,7 @@ class Square: Node {
         ]
        // verticesArray.append(contentsOf: [A,B,C,D,E,F])
         
-        let path = Bundle.main.path(forResource: "texture", ofType: "png")!
+        let path = Bundle.main.path(forResource: "texture2", ofType: "png")!
         let data = NSData(contentsOfFile: path) as! Data
         let texture = try! textureLoader.newTexture(with: data, options: [MTKTextureLoaderOptionSRGB : (false as NSNumber)])
         

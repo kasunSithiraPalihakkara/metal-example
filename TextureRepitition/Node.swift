@@ -16,7 +16,7 @@ class Node {
     let device: MTLDevice
     let name: String
     var vertexCount: Int
-    var vertexBuffer: MTLBuffer
+//  var vertexBuffer: MTLBuffer
     
     var positionX: Float = 0.0
     var positionY: Float = 0.0
@@ -33,23 +33,27 @@ class Node {
     
     lazy var samplerState: MTLSamplerState? = Node.defaultSampler(device: self.device)
     
+    var count = 0
+    var vertexData = Array<Float>()
    
     init(name: String, vertices: Array<Vertex>, device: MTLDevice, texture: MTLTexture) {
        
-        var vertexData = Array<Float>()
+     //  var vertexData = Array<Float>()
         for vertex in vertices{
             vertexData += vertex.floatBuffer()
         }
 
         let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
-        vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+     //   vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
         
         self.name = name
         self.device = device
         vertexCount = vertices.count
         self.texture = texture
         
-        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2)
+//        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2)
+        
+        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2,sizeOfVertexBuffer:dataSize*10000)
     }
     
 
@@ -81,7 +85,9 @@ class Node {
         
         
         renderEncoder.setRenderPipelineState(pipelineState)
-        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
+ //     renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
+        let vertexBuffer = bufferProvider.nextVertexBuffer(verticesArray: vertexData)
+         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
         
         
         //-
@@ -115,7 +121,7 @@ class Node {
                                      instanceCount: vertexCount/3)
         renderEncoder.endEncoding()
         
-        commandBuffer.present(drawable)
+        commandBuffer.present(drawable )
         commandBuffer.commit()
     }
     
@@ -143,15 +149,24 @@ class Node {
     }
     
     func allocateMemoryForVetexBuffer(vertices: Array<Vertex>){
-        var vertexData = Array<Float>()
+       var temVertexData = Array<Float>()
         for vertex in vertices{
-            vertexData += vertex.floatBuffer()
+            temVertexData += vertex.floatBuffer()
         }
         
-        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
-        print("dataSize:\(dataSize)")
-        vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+       vertexData = temVertexData;
         
+        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
+       
+        count += 1
+        print("buffer Count:\(count)")
+        
+   //   vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+   
+   // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
+       
+       
+       
         vertexCount = vertices.count
         
        
