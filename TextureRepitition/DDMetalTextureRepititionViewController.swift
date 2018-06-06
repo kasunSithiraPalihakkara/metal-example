@@ -74,7 +74,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw = Square(device: device,textureLoader: textureLoader)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
-       // objectToDraw.rotationZ = float4x4.degrees(toRad: 90)
+        //objectToDraw.rotationZ = float4x4.degrees(toRad: 0)
         objectToDraw.scale = 0.4
         print("vertex array:\(objectToDraw.verticesArray.count)")
         
