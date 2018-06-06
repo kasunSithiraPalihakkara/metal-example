@@ -1,11 +1,3 @@
-//
-//  BufferProvider.swift
-//  TextureRepitition
-//
-//  Created by 4Axis on 5/22/18.
-//  Copyright © 2018 4Axis. All rights reserved.
-//
-
 import Foundation
 import Metal
 import simd
@@ -59,7 +51,7 @@ class BufferProvider: NSObject {
         
         
         let buffer = vertexBuffers[avaliableVertexBufferIndex]
-        
+       
         let bufferPointer = buffer.contents()
         var vertexData = verticesArray
         

@@ -199,10 +199,18 @@ class DDMetalTextureRepititionViewController: UIViewController {
         
         
         
-        objectToDraw.verticesArray.append(contentsOf: [A,B,C,D,E,F])
-        print("verticesArray count:\(objectToDraw.verticesArray.count)")
+//        objectToDraw.verticesArray.append(contentsOf: [A,B,C,D,E,F])
+//        print("verticesArray count:\(objectToDraw.verticesArray.count)")
+//
+//        objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
         
-        objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
+        //-works if you need to drag the texture
+        var verticesArray:Array<Vertex>  = [
+            A,B,C ,D,E,F
+        ]
+        objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
+        
+        //-
         
         lastTapLocation = pointInView;
     }

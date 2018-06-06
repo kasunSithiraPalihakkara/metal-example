@@ -1,12 +1,3 @@
-//
-//  Node.swift
-//  TextureRepitition
-//
-//  Created by 4Axis on 5/22/18.
-//  Copyright © 2018 4Axis. All rights reserved.
-//
-
-
 import Foundation
 import Metal
 import QuartzCore
@@ -29,7 +20,7 @@ class Node {
     
     var bufferProvider: BufferProvider
     
-    var texture: MTLTexture
+    var texture: MTLTexture?
     
     lazy var samplerState: MTLSamplerState? = Node.defaultSampler(device: self.device)
     
@@ -53,7 +44,7 @@ class Node {
         
 //        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2)
         
-        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2,sizeOfVertexBuffer:dataSize*10000)
+        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2,sizeOfVertexBuffer:dataSize*2)
     }
     
 
@@ -104,7 +95,6 @@ class Node {
             renderEncoder.setVertexBytes(rawPtr, length: MemoryLayout.size(ofValue: viewportSize), at: 2)
         }
         //-
-        
    
         renderEncoder.setFragmentTexture(texture, at: 0)
         if let samplerState = samplerState{
@@ -116,9 +106,10 @@ class Node {
          renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, at: 1)
        
         
+      /*  renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount,
+                                     instanceCount: vertexCount/3)*/
         
-        renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount,
-                                     instanceCount: vertexCount/3)
+        renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount)
         renderEncoder.endEncoding()
         
         commandBuffer.present(drawable )
@@ -156,20 +147,17 @@ class Node {
         
        vertexData = temVertexData;
         
-        let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
+    // let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
        
         count += 1
         print("buffer Count:\(count)")
         
-   //   vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
+    // vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
    
-   // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
-       
-       
+    // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
        
         vertexCount = vertices.count
         
-       
     }
     
 }

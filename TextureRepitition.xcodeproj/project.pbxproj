@@ -74,19 +74,13 @@
 		677748A920B3CE8C00800462 /* TextureRepitition */ = {
 			isa = PBXGroup;
 			children = (
-				677748DA20B44DBD00800462 /* texture.png */,
-				6779A1DC20C10F39004945A2 /* texture2.png */,
-				677748AA20B3CE8C00800462 /* AppDelegate.swift */,
+				67BC29F020C7EB3C000512AB /* Support */,
+				67BC29EF20C7EAD4000512AB /* MetalShaders */,
+				67BC29EE20C7EAB3000512AB /* BufferProvider */,
+				67BC29ED20C7EAA4000512AB /* Node */,
+				67BC29EB20C7EA6D000512AB /* Resourses */,
+				67BC29EC20C7EA83000512AB /* Other */,
 				677748AC20B3CE8C00800462 /* DDMetalTextureRepititionViewController.swift */,
-				677748BC20B3DB9E00800462 /* Shaders.metal */,
-				677748C220B3EEE000800462 /* Vertex.swift */,
-				677748C420B3EFAA00800462 /* Node.swift */,
-				677748C820B3F7FE00800462 /* Square.swift */,
-				677748CA20B413CA00800462 /* BufferProvider.swift */,
-				677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */,
-				677748AE20B3CE8C00800462 /* Main.storyboard */,
-				677748B120B3CE8E00800462 /* Assets.xcassets */,
-				677748B320B3CE8E00800462 /* LaunchScreen.storyboard */,
 				677748B620B3CE8E00800462 /* Info.plist */,
 			);
 			path = TextureRepitition;
@@ -98,6 +92,60 @@
 				6796B97420B6BEEE00B82C37 /* MetalKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		67BC29EB20C7EA6D000512AB /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				677748DA20B44DBD00800462 /* texture.png */,
+				6779A1DC20C10F39004945A2 /* texture2.png */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
+		67BC29EC20C7EA83000512AB /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				677748AE20B3CE8C00800462 /* Main.storyboard */,
+				677748B120B3CE8E00800462 /* Assets.xcassets */,
+				677748B320B3CE8E00800462 /* LaunchScreen.storyboard */,
+				677748AA20B3CE8C00800462 /* AppDelegate.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		67BC29ED20C7EAA4000512AB /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				677748C420B3EFAA00800462 /* Node.swift */,
+				677748C820B3F7FE00800462 /* Square.swift */,
+				677748C220B3EEE000800462 /* Vertex.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
+		67BC29EE20C7EAB3000512AB /* BufferProvider */ = {
+			isa = PBXGroup;
+			children = (
+				677748CA20B413CA00800462 /* BufferProvider.swift */,
+			);
+			path = BufferProvider;
+			sourceTree = "<group>";
+		};
+		67BC29EF20C7EAD4000512AB /* MetalShaders */ = {
+			isa = PBXGroup;
+			children = (
+				677748BC20B3DB9E00800462 /* Shaders.metal */,
+			);
+			path = MetalShaders;
+			sourceTree = "<group>";
+		};
+		67BC29F020C7EB3C000512AB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,10 +1,3 @@
-//
-//  Shaders.metal
-//  TextureRepitition
-//
-//  Created by 4Axis on 5/22/18.
-//  Copyright © 2018 4Axis. All rights reserved.
-//
 
 #include <metal_stdlib>
 using namespace metal;
