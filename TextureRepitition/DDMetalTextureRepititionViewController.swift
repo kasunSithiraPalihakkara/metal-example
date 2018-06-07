@@ -23,16 +23,17 @@ class DDMetalTextureRepititionViewController: UIViewController {
     
     let tapSensivity:Float = 3.0
     var lastTapLocation: CGPoint!
-    var screenBoundryScaleFactor:Float = 5.0
+    var screenBoundryScaleFactor:Float = 10.0
     
     var viewPortSize:vector_uint2 = vector_uint2([UInt32(0),UInt32(0)])
     
+    var texture:MTLTexture!
     
     @IBOutlet weak var mtkView: MTKView! {
         didSet {
            
             mtkView.delegate = self
-            mtkView.preferredFramesPerSecond = 60
+            mtkView.preferredFramesPerSecond = 30
             mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
         }
@@ -74,8 +75,8 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw = Square(device: device,textureLoader: textureLoader)
         objectToDraw.positionX = 0
         objectToDraw.positionY =  0
-        //objectToDraw.rotationZ = float4x4.degrees(toRad: 0)
-        objectToDraw.scale = 0.4
+       // objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
+        objectToDraw.scale = 0.2
         print("vertex array:\(objectToDraw.verticesArray.count)")
         
 
@@ -106,7 +107,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
      func render(_ drawable: CAMetalDrawable?) {
        
         guard let drawable = drawable else { return }
-        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil)
+        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*, texture: texture*/)
         
     }
     
@@ -145,26 +146,28 @@ class DDMetalTextureRepititionViewController: UIViewController {
             var textureCenterX:Float = Float(touchPoint.x)*screenBoundryScaleFactor //change number if you need to bigger canvas
             var textureCenterY:Float = Float(touchPoint.y)*screenBoundryScaleFactor
 
-            let A = Vertex(x: textureCenterX-textureWidth/2, y:textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0 , s: 0.0, t: 0.0)
-            let B = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0 , s: 0.0, t: 800.0)
+            let A = Vertex(x: textureCenterX-textureWidth/2, y:textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0 , s: 0.0, t: 0.0)
+            let B = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0 , s: 0.0, t: 800.0)
             let C = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0 , s: 800.0, t: 800.0)
 
-            let D = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  1.0, g:  0.0, b:  0.0, a:  1.0, s: 0.0, t: 0.0)
+            let D = Vertex(x: textureCenterX-textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0, s: 0.0, t: 0.0)
             let E = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY-textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0, s: 800.0, t: 800.0)
-            let F = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  1.0, b:  0.0, a:  1.0, s: 0.0, t: 800.0)
+            let F = Vertex(x: textureCenterX+textureWidth/2, y: textureCenterY+textureHeight/2, z:   0.0, r:  0.0, g:  0.0, b:  1.0, a:  1.0, s: 0.0, t: 800.0)
 
 
 
             objectToDraw.verticesArray.append(contentsOf: [A,B,C,D,E,F])
             print("verticesArray count:\(objectToDraw.verticesArray.count)")
+            
+            
 
-            objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
+         //   objectToDraw.allocateMemoryForVetexBuffer(vertices:objectToDraw.verticesArray)
          
             //-works if you need to drag the texture
-//            var verticesArray:Array<Vertex>  = [
-//                A,B,C ,D,E,F
-//            ]
-//            objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
+            var verticesArray:Array<Vertex>  = [
+                A,B,C ,D,E,F
+            ]
+            objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
             
             //-
             
@@ -208,7 +211,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
         var verticesArray:Array<Vertex>  = [
             A,B,C ,D,E,F
         ]
-        objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
+   //     objectToDraw.allocateMemoryForVetexBuffer(vertices:verticesArray)
         
         //-
         
@@ -253,7 +256,10 @@ extension DDMetalTextureRepititionViewController: MTKViewDelegate {
     
 /// Called whenever the view needs to render a frame
     func draw(in view: MTKView) {
+    
+        texture = view.currentDrawable!.texture
         render(view.currentDrawable)
+    
     }
     
 }

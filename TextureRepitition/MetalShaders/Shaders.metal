@@ -48,10 +48,10 @@ fragment float4 basic_fragment(VertexOut interpolated [[stage_in]],
                                sampler           sampler2D [[ sampler(0) ]]) {
 
 
-   float4 color = tex2D.sample(sampler2D, interpolated.texCoord);
-   // float4 color =  interpolated.color * tex2D.sample(sampler2D, interpolated.texCoord);
+   //float4 color = tex2D.sample(sampler2D, interpolated.texCoord);
+    float4 color =  interpolated.color * tex2D.sample(sampler2D, interpolated.texCoord);
 
   return color;
-  
+
 }
 

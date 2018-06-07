@@ -48,8 +48,9 @@ class Node {
     }
     
 
-    func render(commandQueue: MTLCommandQueue, pipelineState: MTLRenderPipelineState, drawable: CAMetalDrawable,viewportSize:vector_uint2, clearColor: MTLClearColor?){
+    func render(commandQueue: MTLCommandQueue, pipelineState: MTLRenderPipelineState, drawable: CAMetalDrawable,viewportSize:vector_uint2, clearColor: MTLClearColor?/*,texture: MTLTexture*/){
         
+ 
         _ = bufferProvider.avaliableResourcesSemaphore.wait(timeout: DispatchTime.distantFuture)
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -77,10 +78,10 @@ class Node {
         
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
+        
 //        let vertexBuffer = bufferProvider.nextVertexBuffer(verticesArray: vertexData)
-//         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
-        
-        
+//        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
+ 
         //-
         let input = viewportSize
         var value = input
@@ -114,6 +115,9 @@ class Node {
         
         commandBuffer.present(drawable )
         commandBuffer.commit()
+        
+//        self.texture = nil
+//        self.texture = texture
     }
     
     func modelMatrix() -> float4x4 {
@@ -151,13 +155,13 @@ class Node {
        
         count += 1
         print("buffer Count:\(count)")
-        
+     
      vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
    
     // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
        
         vertexCount = vertices.count
-        
+ 
     }
     
 }
