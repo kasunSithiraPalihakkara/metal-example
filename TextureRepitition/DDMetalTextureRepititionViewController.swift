@@ -28,6 +28,8 @@ class DDMetalTextureRepititionViewController: UIViewController {
     var viewPortSize:vector_uint2 = vector_uint2([UInt32(0),UInt32(0)])
     
     var texture:MTLTexture!
+    var metalView:MTKView! = nil
+  
     
     @IBOutlet weak var mtkView: MTKView! {
         didSet {
@@ -107,7 +109,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
      func render(_ drawable: CAMetalDrawable?) {
        
         guard let drawable = drawable else { return }
-        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*, texture: texture*/)
+        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*,texture: texture*/)
         
     }
     
@@ -174,6 +176,16 @@ class DDMetalTextureRepititionViewController: UIViewController {
             lastPanLocation = pointInView
         } else if panGesture.state == UIGestureRecognizerState.began {
             lastPanLocation = panGesture.location(in: self.view)
+            
+            
+        }else if panGesture.state == UIGestureRecognizerState.ended{
+            
+//            var context = CIContext()
+//            texture = metalView.currentDrawable!.texture
+//            var cImg = CIImage(mtlTexture: texture, options: nil)!
+//            var cgImg = context.createCGImage(cImg, from: cImg.extent)!
+//            let uiImg = UIImage(cgImage: cgImg)
+//            print("jgddh")
         }
     }
     
@@ -257,8 +269,8 @@ extension DDMetalTextureRepititionViewController: MTKViewDelegate {
 /// Called whenever the view needs to render a frame
     func draw(in view: MTKView) {
     
-        texture = view.currentDrawable!.texture
         render(view.currentDrawable)
+        metalView = view
     
     }
     

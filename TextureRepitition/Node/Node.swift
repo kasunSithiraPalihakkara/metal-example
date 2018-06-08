@@ -158,9 +158,9 @@ class Node {
      
      vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
    
-    // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
+    //vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
        
-        vertexCount = vertices.count
+    //vertexCount = vertices.count
  
     }
     
