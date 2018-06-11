@@ -20,6 +20,8 @@
 		677748DB20B44DBD00800462 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 677748DA20B44DBD00800462 /* texture.png */; };
 		6779A1DD20C10F39004945A2 /* texture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6779A1DC20C10F39004945A2 /* texture2.png */; };
 		677C9D3720B52D4700EA76D2 /* float4x4+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */; };
+		677E69CE20CA835700B20960 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E69CD20CA835700B20960 /* Plane.swift */; };
+		677E69D220CA864800B20960 /* aa.png in Resources */ = {isa = PBXBuildFile; fileRef = 677E69D120CA864700B20960 /* aa.png */; };
 		6796B97520B6BEEE00B82C37 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796B97420B6BEEE00B82C37 /* MetalKit.framework */; };
 		67A0C54E20C90B2700632038 /* neon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 67A0C54D20C90B2700632038 /* neon-1.png */; };
 		67A0C55020C90B9900632038 /* chalk-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 67A0C54F20C90B9900632038 /* chalk-1.png */; };
@@ -41,6 +43,8 @@
 		677748DA20B44DBD00800462 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		6779A1DC20C10F39004945A2 /* texture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture2.png; sourceTree = "<group>"; };
 		677C9D3620B52D4700EA76D2 /* float4x4+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "float4x4+Extensions.swift"; sourceTree = "<group>"; };
+		677E69CD20CA835700B20960 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		677E69D120CA864700B20960 /* aa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aa.png; sourceTree = "<group>"; };
 		6796B97420B6BEEE00B82C37 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67A0C54D20C90B2700632038 /* neon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neon-1.png"; sourceTree = "<group>"; };
 		67A0C54F20C90B9900632038 /* chalk-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chalk-1.png"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		67BC29EB20C7EA6D000512AB /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
+				677E69D120CA864700B20960 /* aa.png */,
 				67A0C54F20C90B9900632038 /* chalk-1.png */,
 				67A0C54D20C90B2700632038 /* neon-1.png */,
 				677748DA20B44DBD00800462 /* texture.png */,
@@ -124,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				677748C420B3EFAA00800462 /* Node.swift */,
+				677E69CD20CA835700B20960 /* Plane.swift */,
 				677748C820B3F7FE00800462 /* Square.swift */,
 				677748C220B3EEE000800462 /* Vertex.swift */,
 			);
@@ -216,6 +222,7 @@
 				677748B520B3CE8E00800462 /* LaunchScreen.storyboard in Resources */,
 				6779A1DD20C10F39004945A2 /* texture2.png in Resources */,
 				677748B220B3CE8E00800462 /* Assets.xcassets in Resources */,
+				677E69D220CA864800B20960 /* aa.png in Resources */,
 				67A0C54E20C90B2700632038 /* neon-1.png in Resources */,
 				677748B020B3CE8C00800462 /* Main.storyboard in Resources */,
 				677748DB20B44DBD00800462 /* texture.png in Resources */,
@@ -231,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				677748C920B3F7FE00800462 /* Square.swift in Sources */,
+				677E69CE20CA835700B20960 /* Plane.swift in Sources */,
 				677C9D3720B52D4700EA76D2 /* float4x4+Extensions.swift in Sources */,
 				677748BD20B3DB9E00800462 /* Shaders.metal in Sources */,
 				677748CB20B413CA00800462 /* BufferProvider.swift in Sources */,

@@ -26,6 +26,7 @@ class Node {
     
     var count = 0
     var vertexData = Array<Float>()
+    var createrenderCommandEncoderOnce = true
    
     init(name: String, vertices: Array<Vertex>, device: MTLDevice, texture: MTLTexture) {
        
@@ -46,13 +47,17 @@ class Node {
         
 //        self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3, sizeOfUniformsBuffer: MemoryLayout<Float>.size * float4x4.numberOfElements() * 2,sizeOfVertexBuffer:dataSize*2)
     }
-    
+  
 
     func render(commandQueue: MTLCommandQueue, pipelineState: MTLRenderPipelineState, drawable: CAMetalDrawable,viewportSize:vector_uint2, clearColor: MTLClearColor?/*,texture: MTLTexture*/){
         
- 
+    
         _ = bufferProvider.avaliableResourcesSemaphore.wait(timeout: DispatchTime.distantFuture)
         
+        var renderEncoder:MTLRenderCommandEncoder!
+        var commandBuffer:MTLCommandBuffer!
+        
+      
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = drawable.texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
@@ -61,22 +66,24 @@ class Node {
         renderPassDescriptor.colorAttachments[0].storeAction = .store
         
         
-        let commandBuffer = commandQueue.makeCommandBuffer()
+         commandBuffer = commandQueue.makeCommandBuffer()
         
         commandBuffer.addCompletedHandler { (_) in
             self.bufferProvider.avaliableResourcesSemaphore.signal()
         }
         
-        let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
-        
+         renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
+            
+      
         // Set the region of the drawable to which we'll draw.
         
+        if renderEncoder != nil{
         let viewport:MTLViewport = (MTLViewport)(originX: 0.0, originY: 0.0, width: Double(viewportSize.x), height: Double(viewportSize.y), znear: -1.0, zfar: 1.0 )
         renderEncoder.setViewport(viewport)
         
         
-        
         renderEncoder.setRenderPipelineState(pipelineState)
+        
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, at: 0)
         
 //        let vertexBuffer = bufferProvider.nextVertexBuffer(verticesArray: vertexData)
@@ -107,15 +114,16 @@ class Node {
          renderEncoder.setVertexBuffer(uniformBuffer, offset: 0, at: 1)
        
         
-      /*  renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount,
-                                     instanceCount: vertexCount/3)*/
+       renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount,
+                                     instanceCount: vertexCount/3)
         
-        renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount)
+       //renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexCount)
+        
         renderEncoder.endEncoding()
         
-        commandBuffer.present(drawable )
+        commandBuffer.present(drawable)
         commandBuffer.commit()
-        
+        }
 //        self.texture = nil
 //        self.texture = texture
     }
@@ -143,13 +151,14 @@ class Node {
         return device.makeSamplerState(descriptor: sampler)
     }
     
+    
     func allocateMemoryForVetexBuffer(vertices: Array<Vertex>){
        var temVertexData = Array<Float>()
         for vertex in vertices{
             temVertexData += vertex.floatBuffer()
         }
         
-       vertexData = temVertexData;
+           vertexData = temVertexData;
         
       let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
        
@@ -158,9 +167,9 @@ class Node {
      
      vertexBuffer = device.makeBuffer(bytes: vertexData, length: dataSize, options: [])
    
-    //vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
+    // vertexBuffer.contents().copyBytes(from: vertexData, count: dataSize)
        
-    //vertexCount = vertices.count
+        vertexCount = vertices.count
  
     }
     

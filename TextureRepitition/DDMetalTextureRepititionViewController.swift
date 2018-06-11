@@ -13,6 +13,7 @@ import simd
 class DDMetalTextureRepititionViewController: UIViewController {
     
     var objectToDraw: Square!
+    var temObjectToDraw:Plane!
     var device: MTLDevice!
     var pipelineState: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
@@ -35,8 +36,8 @@ class DDMetalTextureRepititionViewController: UIViewController {
         didSet {
            
             mtkView.delegate = self
-            mtkView.preferredFramesPerSecond = 30
-            mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            mtkView.preferredFramesPerSecond = 60
+            mtkView.clearColor = MTLClearColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
     
         }
     }
@@ -81,6 +82,12 @@ class DDMetalTextureRepititionViewController: UIViewController {
         objectToDraw.scale = 0.2
         print("vertex array:\(objectToDraw.verticesArray.count)")
         
+        temObjectToDraw = Plane(device: device,textureLoader: textureLoader)
+        temObjectToDraw.positionX = 0
+        temObjectToDraw.positionY =  0
+        // objectToDraw.rotationZ = float4x4.degrees(toRad: 45)
+        temObjectToDraw.scale = 1.0
+       
 
         setupGestures()
         
@@ -108,9 +115,20 @@ class DDMetalTextureRepititionViewController: UIViewController {
 
      func render(_ drawable: CAMetalDrawable?) {
        
-        guard let drawable = drawable else { return }
-        objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*,texture: texture*/)
         
+        guard let drawable = drawable else { return }
+//
+//        var sceneObject:Array<Node> = [objectToDraw,temObjectToDraw]
+//
+//        for scene in sceneObject{
+//
+//          scene .render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*,texture: texture*/)
+//        }
+
+          objectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*,texture: texture*/)
+        
+//        temObjectToDraw.render(commandQueue: commandQueue, pipelineState: pipelineState, drawable: drawable,viewportSize:viewPortSize, clearColor: nil/*,texture: texture*/)
+
     }
     
     //MARK: - Gesture related
@@ -185,7 +203,7 @@ class DDMetalTextureRepititionViewController: UIViewController {
 //            var cImg = CIImage(mtlTexture: texture, options: nil)!
 //            var cgImg = context.createCGImage(cImg, from: cImg.extent)!
 //            let uiImg = UIImage(cgImage: cgImg)
-//            print("jgddh")
+//            print("Texture width:\(texture.width) & height:\(texture.height)")
         }
     }
     
